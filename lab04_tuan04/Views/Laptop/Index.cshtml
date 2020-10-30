@@ -1,0 +1,171 @@
+﻿@model IEnumerable<lab04_tuan04.Models.laptop>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Company</h2>
+@{Html.RenderAction("getCompany", "Laptop"); }
+<br />
+<h2>CPU</h2>
+@{Html.RenderAction("getCPU", "Laptop"); }
+<br />
+<h2>Type Name</h2>
+@{Html.RenderAction("getTypeName", "Laptop"); }
+<br/>
+<h2>Memory</h2>
+@{Html.RenderAction("getMemory", "Laptop"); }
+<br />
+<h2>GPU</h2>
+@{Html.RenderAction("getGPU", "Laptop"); }
+<br />
+<h2>OS</h2>
+@{Html.RenderAction("getOpSys", "Laptop"); }
+<br />
+<h2>Inches</h2>
+@{Html.RenderAction("getInches", "Laptop"); }
+<br />
+<h2>Ram</h2>
+@{Html.RenderAction("getRam", "Laptop"); }
+<br />
+<h2>Weight</h2>
+@{Html.RenderAction("getWeight", "Laptop"); }
+
+<input type="button" name="name" onclick="find();" value="Assign" />
+<ul id="laptop"></ul>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+
+
+    var uri = "../../api/LaptopAPI"
+    $(document).ready(function () {
+        $.getJSON(uri).done(function (data) {
+            $.each(data, function (key, item) {
+                $('<li>', { text: formatItem(item) }).appendTo($('#laptop'))
+            });
+        });
+
+    });
+    //function find
+    function formatItem(item) {
+        return item.Product + ':' + item.ScreenResolution + ' - ' + item.Cpu + ' - ' + item.TypeName + ' - ' + item.Memory + ' - ' + item.Gpu + ' - ' + item.OpSys + ' - ' + item.Inches + ' - ' + item.Ram + ' - ' + item.Weight;
+    }
+    function find() {
+        $('#laptop').text('');
+        var idString = "";
+        //getCompany
+        var idCompany = $('#2').find('input[type=checkbox]');
+        for (var i = 0; i < idCompany.length; i++) {
+            if (idCompany[i].checked) {
+                if (idString == "") {
+                    idString = "2-" + idCompany[i].name;
+                }
+                else {
+                    idString = idString + "_2-" + idCompany[i].name;
+                }
+            }
+        }
+        //getCpu
+        var idCpu = $('#6').find('input[type=checkbox]');
+        for (var i = 0; i < idCpu.length; i++) {
+            if (idCpu[i].checked) {
+                if (idString == "") {
+                    idString = "6-" + idCpu[i].name;
+                }
+                else {
+                    idString = idString + "_6-" + idCpu[i].name;
+                }
+            }
+        }
+        //getTypeName
+        var idTypeName = $('#4').find('input[type=checkbox]');
+        for (var i = 0; i < idTypeName.length; i++) {
+            if (idTypeName[i].checked) {
+                if (idString == "") {
+                    idString = "4-" + idTypeName[i].name;
+                }
+                else {
+                    idString = idString + "_4-" + idTypeName[i].name;
+                }
+            }
+        }
+        //getMemory
+        var idMemory = $('#8').find('input[type=checkbox]');
+        for (var i = 0; i < idMemory.length; i++) {
+            if (idMemory[i].checked) {
+                if (idString == "") {
+                    idString = "8-" + idMemory[i].name;
+                }
+                else {
+                    idString = idString + "_8-" + idMemory[i].name;
+                }
+            }
+        }
+        //getGPU
+        var idGPU = $('#10').find('input[type=checkbox]');
+        for (var i = 0; i < idGPU.length; i++) {
+            if (idGPU[i].checked) {
+                if (idString == "") {
+                    idString = "10-" + idGPU[i].name;
+                }
+                else {
+                    idString = idString + "_10-" + idGPU[i].name;
+                }
+            }
+        }
+        //getOpSys
+        var idOS = $('#11').find('input[type=checkbox]');
+        for (var i = 0; i < idOS.length; i++) {
+            if (idOS[i].checked) {
+                if (idString == "") {
+                    idString = "11-" + idGPU[i].name;
+                }
+                else {
+                    idString = idString + "_11-" + idOS[i].name;
+                }
+            }
+        }
+        //getInches
+        var idInches = $('#5').find('input[type=checkbox]');
+        for (var i = 0; i < idInches.length; i++) {
+            if (idInches[i].checked) {
+                if (idString == "") {
+                    idString = "5-" + idInches[i].name;
+                }
+                else {
+                    idString = idString + "_5-" + idInches[i].name;
+                }
+            }
+        }
+        //getRam
+        var idRam = $('#9').find('input[type=checkbox]');
+        for (var i = 0; i < idRam.length; i++) {
+            if (idRam[i].checked) {
+                if (idString == "") {
+                    idString = "9-" + idRam[i].name;
+                }
+                else {
+                    idString = idString + "_9-" + idRam[i].name;
+                }
+            }
+        }
+        //getWeight
+        var idWeight = $('#14').find('input[type=checkbox]');
+        for (var i = 0; i < idWeight.length; i++) {
+            if (idWeight[i].checked) {
+                if (idString == "") {
+                    idString = "14-" + idWeight[i].name;
+                }
+                else {
+                    idString = idString + "_14-" + idWeight[i].name;
+                }
+            }
+        }
+        $.getJSON(uri + "/" + idString).done(function (data) {
+            $.each(data, function (key, item) {
+                $('<li>', { text: formatItem(item) }).appendTo($('#laptop'))
+            });
+        }).fail(function (jqXHR,textStatus,err) {
+            $('#laptop').text('Error:' + err);
+        });
+
+    }
+</script> 

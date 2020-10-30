@@ -1,0 +1,10 @@
+﻿@model IEnumerable<System.Nullable<int>>
+<div id="9">
+    @foreach (var item in Model)
+    {
+        @Html.CheckBox(item.ToString());
+        <span>@item.ToString()</span>
+        <b>&nbsp;</b>
+    }
+</div>
+
